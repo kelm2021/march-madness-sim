@@ -19,6 +19,7 @@
 
 const express = require("express");
 const { paymentMiddleware } = require("x402-express");
+const { facilitator } = require("@coinbase/x402");
 const {
   runSimulation,
   extractWinner,
@@ -39,9 +40,9 @@ const DEFAULT_SIMS = 10000;
 const HIGH_CONFIDENCE_SIMS = 50000;
 
 // ============================================================
-// x402 Payment Middleware
+// x402 Payment Middleware (Coinbase CDP Facilitator for mainnet)
 // ============================================================
-const payment = paymentMiddleware(PAY_TO, {
+const routes = {
   "POST /sim/winner": {
     price: ".02",
     network: "base",
@@ -144,7 +145,9 @@ const payment = paymentMiddleware(PAY_TO, {
       },
     },
   },
-});
+};
+
+const payment = paymentMiddleware(PAY_TO, routes, facilitator);
 
 // ============================================================
 // Free Endpoints (before payment middleware)
@@ -376,22 +379,26 @@ app.post("/sim/full-bracket", payment, (req, res) => {
 });
 
 // ============================================================
-// Start Server
+// Start Server (only when run directly, not when imported by Vercel)
 // ============================================================
 
-app.listen(PORT, () => {
-  console.log(`\n  March Madness Simulation API`);
-  console.log(`  ============================`);
-  console.log(`  Running on http://localhost:${PORT}`);
-  console.log(`  Payment address: ${PAY_TO}`);
-  console.log(`\n  Free endpoints:`);
-  console.log(`    GET  /health`);
-  console.log(`    GET  /methodology`);
-  console.log(`    GET  /teams`);
-  console.log(`\n  Paid endpoints (x402):`);
-  console.log(`    POST /sim/winner          $0.02`);
-  console.log(`    POST /sim/final-four      $0.08`);
-  console.log(`    POST /sim/elite-eight     $0.15`);
-  console.log(`    POST /sim/full-bracket    $0.35`);
-  console.log(`\n  High confidence: append ?sims=50000 (3x price)\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n  March Madness Simulation API`);
+    console.log(`  ============================`);
+    console.log(`  Running on http://localhost:${PORT}`);
+    console.log(`  Payment address: ${PAY_TO}`);
+    console.log(`\n  Free endpoints:`);
+    console.log(`    GET  /health`);
+    console.log(`    GET  /methodology`);
+    console.log(`    GET  /teams`);
+    console.log(`\n  Paid endpoints (x402):`);
+    console.log(`    POST /sim/winner          $0.02`);
+    console.log(`    POST /sim/final-four      $0.08`);
+    console.log(`    POST /sim/elite-eight     $0.15`);
+    console.log(`    POST /sim/full-bracket    $0.35`);
+    console.log(`\n  High confidence: append ?sims=50000 (3x price)\n`);
+  });
+}
+
+module.exports = app;

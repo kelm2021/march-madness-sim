@@ -7,11 +7,18 @@
     "start": "node index.js",
     "test": "node test.js"
   },
-  "keywords": ["march-madness", "simulation", "x402", "ncaa", "monte-carlo"],
+  "keywords": [
+    "march-madness",
+    "simulation",
+    "x402",
+    "ncaa",
+    "monte-carlo"
+  ],
   "author": "Liquid Mercury",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@coinbase/x402": "^2.1.0",
     "express": "^5.2.1",
     "x402-express": "^1.1.0"
   }
