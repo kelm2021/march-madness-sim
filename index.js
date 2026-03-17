@@ -19,7 +19,6 @@
 
 const express = require("express");
 const { paymentMiddleware } = require("x402-express");
-const { facilitator } = require("@coinbase/x402");
 const {
   runSimulation,
   extractWinner,
@@ -147,7 +146,7 @@ const routes = {
   },
 };
 
-const payment = paymentMiddleware(PAY_TO, routes, facilitator);
+const payment = paymentMiddleware(PAY_TO, routes);
 
 // ============================================================
 // Free Endpoints (before payment middleware)
