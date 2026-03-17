@@ -34,7 +34,7 @@ const { calculateWinProbability } = require("./sim/matchup");
 const app = express();
 app.use(express.json());
 
-const PAY_TO = "0xC1ce2f3fc018EB304Fa178BDDFFf0E5664Fa6B64";
+const PAY_TO = "0x348Df429BD49A7506128c74CE1124A81B4B7dC9d";
 const PORT = process.env.PORT || 4020;
 const DEFAULT_SIMS = 10000;
 const HIGH_CONFIDENCE_SIMS = 50000;
