@@ -44,7 +44,7 @@ const HIGH_CONFIDENCE_SIMS = 50000;
 const payment = paymentMiddleware(PAY_TO, {
   "POST /sim/winner": {
     price: ".02",
-    network: "base-sepolia",
+    network: "base",
     config: {
       description:
         "Real-time Monte Carlo simulation (10K runs) → championship probability distribution for all 68 teams. Supports scenario constraints.",
@@ -69,7 +69,7 @@ const payment = paymentMiddleware(PAY_TO, {
   },
   "POST /sim/final-four": {
     price: ".08",
-    network: "base-sepolia",
+    network: "base",
     config: {
       description:
         "Real-time Monte Carlo simulation (10K runs) → Final Four advancement probabilities for all 68 teams. Supports scenario constraints.",
@@ -94,7 +94,7 @@ const payment = paymentMiddleware(PAY_TO, {
   },
   "POST /sim/elite-eight": {
     price: ".15",
-    network: "base-sepolia",
+    network: "base",
     config: {
       description:
         "Real-time Monte Carlo simulation (10K runs) → Elite Eight advancement probabilities + upset alerts. Supports scenario constraints.",
@@ -120,7 +120,7 @@ const payment = paymentMiddleware(PAY_TO, {
   },
   "POST /sim/full-bracket": {
     price: ".35",
-    network: "base-sepolia",
+    network: "base",
     config: {
       description:
         "Real-time Monte Carlo simulation (10K runs) → complete bracket with all rounds, all matchups, all advancement probabilities, upset alerts. Supports scenario constraints.",
